@@ -24,37 +24,44 @@
 
 class Humano
 
+  TAMANIO_SECUENCIA = 4
+  CANTIDAD_PARA_CUMPLIR = 2
+
+  @cantidad_de_secuencias = 0
+
   def mutante?(dna)
-    tamanio_secuencia = 4
-    cantidad_de_secuencias = 0
+
     dna.each_with_index do |fila, posicion|
       fila.each_with_index do |casillero, i|
-        if (casillero.length - i) >= tamanio_secuencia
-          #Esto se puede hacer generico y mejor con un take while quizas, si me devuelve la cantidad que saco
-          cantidad_de_secuencias += 1 if casillero == fila[i+1] && casillero == fila[i+2] && casillero == fila[i+3]
-          return if cantidad_de_secuencias >= 2
+        if (casillero.length - i) >= TAMANIO_SECUENCIA
+          incrementar_cantidad_de_secuencias(array_a_chequear)
+          return if @cantidad_de_secuencias >= CANTIDAD_PARA_CUMPLIR
         end
 
-        if (dna.length - posicion) >= tamanio_secuencia
-          #Esto se puede hacer generico y mejor con un take while quizas, si me devuelve la cantidad que saco
-          cantidad_de_secuencias += 1 if casillero == dna[posicion+1][i] && casillero == dna[posicion+2][i] && casillero == dna[posicion+3][i]
-          return if cantidad_de_secuencias >= 2
+        if (dna.length - posicion) >= TAMANIO_SECUENCIA
+          incrementar_cantidad_de_secuencias([dna[posicion][i], dna[posicion+1][i], dna[posicion+2][i], dna[posicion+3][i]])
+          return if @cantidad_de_secuencias >= CANTIDAD_PARA_CUMPLIR
         end
 
-        if (casillero.length - i) >= tamanio_secuencia && (dna.length - posicion) >= tamanio_secuencia
-          # Quizas pueda armar un array con la secuencia diagonal y manejarlo mas feliz
-          cantidad_de_secuencias += 1 if casillero == dna[posicion+1][i+1] && casillero == dna[posicion+2][i+2] && casillero == dna[posicion+3][i+3]
-          return if cantidad_de_secuencias >= 2
+        if (casillero.length - i) >= TAMANIO_SECUENCIA && (dna.length - posicion) >= TAMANIO_SECUENCIA
+          incrementar_cantidad_de_secuencias([dna[posicion][i], dna[posicion+1][i+1], dna[posicion+2][i+2], dna[posicion+3][i+3]])
+          return if @cantidad_de_secuencias >= CANTIDAD_PARA_CUMPLIR
         end
-
-        if (i > tamanio_secuencia) && posicion > tamanio_secuencia
-          # Quizas pueda armar un array con la secuencia diagonal y manejarlo mas feliz
-          cantidad_de_secuencias += 1 if casillero == dna[posicion+1][i-1] && casillero == dna[posicion+2][i-2] && casillero == dna[posicion+3][i-3]
-          return if cantidad_de_secuencias >= 2
+        
+        if (i > TAMANIO_SECUENCIA) && posicion > TAMANIO_SECUENCIA
+          incrementar_cantidad_de_secuencias([dna[posicion][i], dna[posicion+1][i-1], dna[posicion+2][i-2], dna[posicion+3][i-3]])
+          return if @cantidad_de_secuencias >= CANTIDAD_PARA_CUMPLIR
         end
 
       end
     end
+
+  end
+
+  private
+
+  def incrementar_cantidad_de_secuencias array_a_chequear
+    @cantidad_de_secuencias += 1 if array_a_chequear.take_while{|c| c == casillero]}.length >= TAMANIO_SECUENCIA
   end
 
 end
