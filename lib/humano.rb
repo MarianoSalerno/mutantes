@@ -1,3 +1,4 @@
+require "pry"
 # Que pasa si hay 5 iguales seguidas? cuentan como 2 secuencias? voy a asumir que si
 
 # Si la matriz tiene algo que no sea A T C o G rompo
@@ -27,28 +28,32 @@ class Humano
 
     @dna.each_with_index do |fila, posicion|
       fila.each_with_index do |casillero, i|
+        lugar_derecha = (fila.length - i) >= self.class.tamanio_secuencia
+        lugar_abajo = (@dna.length - posicion) >= self.class.tamanio_secuencia
+        lugar_izquierda = (fila.length - i) < self.class.tamanio_secuencia
+
         #Chequeo horizontal
-        if (casillero.length - i) >= self.class.tamanio_secuencia
+        if lugar_derecha
           incrementar_cantidad_de_secuencias([fila[i], fila[i+1], fila[i+2], fila[i+3]], casillero)
-          return true if @cantidad_de_secuencias >= self.class.cantidad_para_cumplir
+          return true if cumple_condicion?
         end
         
         #Chequeo vertical
-        if (@dna.length - posicion) >= self.class.tamanio_secuencia
+        if lugar_abajo
           incrementar_cantidad_de_secuencias([@dna[posicion][i], @dna[posicion+1][i], @dna[posicion+2][i], @dna[posicion+3][i]], casillero)
-          return true if @cantidad_de_secuencias >= self.class.cantidad_para_cumplir
+          return true if cumple_condicion?
         end
         
         #Chequeo diagonal derecha
-        if (casillero.length - i) >= self.class.tamanio_secuencia && (@dna.length - posicion) >= self.class.tamanio_secuencia
+        if lugar_derecha && lugar_abajo
           incrementar_cantidad_de_secuencias([@dna[posicion][i], @dna[posicion+1][i+1], @dna[posicion+2][i+2], @dna[posicion+3][i+3]], casillero)
-          return true if @cantidad_de_secuencias >= self.class.cantidad_para_cumplir
+          return true if cumple_condicion?
         end
         
         #Chequeo diagonal izquierda
-        if (i >= self.class.tamanio_secuencia) && posicion >= self.class.tamanio_secuencia
+        if lugar_izquierda && lugar_abajo
           incrementar_cantidad_de_secuencias([@dna[posicion][i], @dna[posicion+1][i-1], @dna[posicion+2][i-2], @dna[posicion+3][i-3]], casillero)
-          return true if @cantidad_de_secuencias >= self.class.cantidad_para_cumplir
+          return true if cumple_condicion?
         end
 
       end
@@ -67,6 +72,10 @@ class Humano
 
   def incrementar_cantidad_de_secuencias(array_a_chequear, casillero)
     @cantidad_de_secuencias += 1 if array_a_chequear.take_while{|c| c == casillero}.length >= self.class.tamanio_secuencia
+  end
+
+  def cumple_condicion?
+    @cantidad_de_secuencias >= self.class.cantidad_para_cumplir
   end
 
 end
