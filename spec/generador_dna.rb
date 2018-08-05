@@ -4,67 +4,31 @@
 class GeneradorDna
 
   def mutante_fila
-    [
-      ['A', 'A', 'A', 'A', 'A'],
-      ['C', 'T', 'A', 'G', 'A'],
-      ['T', 'C', 'A', 'C', 'G'],
-      ['A', 'C', 'G', 'T', 'C'],
-      ['T', 'C', 'A', 'C', 'G']      
-    ]  
+    ['AAAAA', 'CTAGA', 'TCACG', 'ACGTC', 'TCACG']
   end
 
   def mutante_columna
-    [
-      ['C', 'A', 'T', 'A', 'A'],
-      ['C', 'T', 'A', 'G', 'A'],
-      ['C', 'C', 'A', 'C', 'G'],
-      ['C', 'C', 'G', 'T', 'C'],
-      ['C', 'C', 'A', 'C', 'G']      
-    ]  
+    ['CATAA', 'CTAGA', 'CCACG', 'CCGTC', 'CCACG']
   end
 
   def mutante_diagonal_derecha
-    [
-      ['T', 'A', 'T', 'A', 'A'],
-      ['A', 'T', 'A', 'G', 'A'],
-      ['T', 'C', 'T', 'C', 'G'],
-      ['G', 'C', 'G', 'T', 'C'],
-      ['C', 'C', 'A', 'C', 'T']      
-    ]  
+    ['TATAA', 'ATAGA', 'TCTCG', 'GCGTC', 'CCACT']
   end
 
   def mutante_diagonal_izquierda
-    [
-      ['C', 'A', 'T', 'A', 'A'],
-      ['A', 'C', 'A', 'G', 'A'],
-      ['T', 'C', 'C', 'C', 'G'],
-      ['G', 'C', 'G', 'C', 'C'],
-      ['C', 'C', 'A', 'C', 'C']      
-    ]  
+    ['CATAA', 'ACAGA', 'TCCCG', 'GCGCC', 'CCACC']
   end
 
   def no_mutante
-    [
-      ['A', 'A', 'A', 'C', 'T'],
-      ['C', 'T', 'C', 'C', 'C'],
-      ['T', 'T', 'A', 'C', 'G'],
-      ['A', 'C', 'G', 'G', 'G'],
-      ['T', 'C', 'C', 'C', 'C']
-    ]  
+    ['AAACT', 'CTCCC', 'TTACG', 'ACGGG', 'TCCCC']
   end
 
   def invalido
-    [
-      ['A', 'A', 'A', 'A', 'A'],
-      ['C', 'T', 'A', 'G', 'A'],
-      ['T', 'C', 'A', 'C', 'G'],
-      ['A', 'C', 'G', 'T', 'C'],
-      ['T', 'C', 'A', 'C', '2']
-    ]  
+    ['AAAAA','CTAGA','TCACG','ACGTC','TCAC2']  
   end
 
   def dimensiones_incorrectas
-    ['A', 'A', 'A', 'A']
+    ['AAAA']
   end
 
 end

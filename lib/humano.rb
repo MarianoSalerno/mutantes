@@ -19,7 +19,7 @@ class Humano
   end
 
   def initialize(dna)
-    @dna = dna
+    @dna = dna.map(&:chars)
     @cantidad_de_secuencias = 0
   end
 
