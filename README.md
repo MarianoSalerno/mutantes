@@ -4,11 +4,11 @@
 
 Para correr el proyecto instalar ruby (con [rbenv](https://github.com/rbenv/rbenv) o [rvm](https://rvm.io/)) y despues correr los siguientes comandos en la terminal:
 
-`
+```
 gem install bundler
 bundle install --local
 puma config.ru
-`
+```
 Las estadisticas funcionan con [redis](https://redis.io/topics/quickstart) al cual hay que levantar aparte.
 
 Luego de levantar todo se le puede pegar a la api utilizando curl:
