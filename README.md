@@ -36,7 +36,7 @@ curl -X GET http://localhost:9292/stats/
 
 ## Performance
 
-Al no tener tiempo para hostear el proyecto y probar si se banca las fluctuacones de trafico que piden (seguro que 1M de requests por segundo no) voy a tratar de escribir como haria para mejorar la performance de la misma:
+Al no tener tiempo para hostear el proyecto y probar si se banca las fluctuaciones de trafico que piden (seguro que 1M de requests por segundo no) voy a tratar de escribir como haria para mejorar la performance de la misma:
 
 * Ruby no es el lenguaje adecuado para manejar ese nivel de trafico dado que, al haber sido pensado con otras prioridades, consume mas memoria y procesador que otros lenguajes como java o go por ejemplo. Sumado a esto MRI tiene el problema del [GIL](https://en.wikipedia.org/wiki/Global_interpreter_lock), el cual limita los beneficios que trae puma al atender cada request en paralelo con threads (que dicho sea de paso con MRI no son threads del sistema operativo sino manejados por el interprete) dado que dos threads no pueden correr codigo ruby al mismo tiempo. Esto se veria mitigado si esta aplicacion usara mas I/O que CPU pero este no es el caso, dado que solo se usa I/O para las estadisticas, por lo que la mayoria del tiempo se esta utilizando la CPU.
 * Seguramente se debera escalar horizontalmente la aplicacion con lo cual habra varias instancias de la misma levantadas, para hacer esto de la forma mas eficiente posible entiendo que se puede usar autoscaling de AWS ECS que incluye un load balancer para distribuir el trafico de forma equitativa entre todas las instancias de la aplicacion y ademas levanta y baja instancias segun sea necesario para hacer frente a picos de trafico.
